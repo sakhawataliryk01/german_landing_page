@@ -1,4 +1,4 @@
-# CT-Arbeitsschutz Landingpage
+# german_landing_page
 
 Next.js recreation of a German occupational-safety consulting landing page, inspired by [ct-arbeitsschutz.de](https://ct-arbeitsschutz.de/).
 
