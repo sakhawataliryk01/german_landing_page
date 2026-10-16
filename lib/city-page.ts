@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { cityFromSlug, headlineForCity, knownCitySlugs } from "@/lib/cities";
 
-const CITY_SLUG_PATTERN = /^(arbeitssicherheit-in-|arbeitsschutz-in-)(.+)$/;
+const CITY_SLUG_PATTERN = /^(arbeitssicherheit-in-|arbeitsschutz-in-|fosi-in-)(.+)$/;
 
 export function parseCityRoute(slug: string) {
   const normalized = decodeURIComponent(slug).trim().toLowerCase();
@@ -37,5 +37,6 @@ export function cityStaticParams() {
   return knownCitySlugs().flatMap((city) => [
     { slug: `arbeitssicherheit-in-${city}` },
     { slug: `arbeitsschutz-in-${city}` },
+    { slug: `fosi-in-${city}` },
   ]);
 }

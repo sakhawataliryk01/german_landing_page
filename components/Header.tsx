@@ -8,7 +8,8 @@ import { navItems } from "@/lib/content";
 function pageBase(pathname: string) {
   if (
     pathname.startsWith("/arbeitssicherheit-in-") ||
-    pathname.startsWith("/arbeitsschutz-in-")
+    pathname.startsWith("/arbeitsschutz-in-") ||
+    pathname.startsWith("/fosi-in-")
   ) {
     return pathname.replace(/\/$/, "");
   }
