@@ -7,12 +7,63 @@ export const navItems = [
   { hash: "#kontakt", label: "Kontakt" },
 ];
 
-export function heroBullets(city: string) {
+export type HeroVariant = {
+  title: string;
+  subtitle: string;
+  intro: string;
+  bullets: string[];
+};
+
+export function heroVariants(city: string): HeroVariant[] {
+  const teamIntro =
+    "Unser Team von CT Arbeitsschutz berät und unterstützt Sie rundum zum Thema Arbeitssicherheit. Damit erfüllen Sie alle gesetzlichen Anforderungen und sichern Gefahren erfolgreich ab.";
+
   return [
-    `In ${city}, deutschlandweit oder digital`,
-    "Prävention durch Sicherheitsingenieur",
-    "Teilnahme an ASA-Sitzungen",
-    "Betreuung gemäß Arbeitssicherheitsgesetz (ASiG)",
+    {
+      title: `Arbeitssicherheit in ${city}`,
+      subtitle: "Sicherheit für Unternehmen und Kollegen",
+      intro:
+        "Sichern Sie Ihre Arbeitnehmenden ab. Unsere Experten beraten und betreuen Sie in allen Bereichen rundum das Thema Arbeitssicherheit. Damit halten Sie alle gesetzlichen Vorschriften ein und sind gegen Gefahren abgesichert.",
+      bullets: [
+        "Prävention & Beratung in Arbeitssicherheitsfragen",
+        `Beste Beratungsqualität im Raum ${city} und deutschlandweit`,
+        `Ganzheitliche Betreuung digital oder vor Ort in ${city}`,
+        "Professionell betreut und abgesichert – Einhaltung der rechtlichen Vorgaben",
+      ],
+    },
+    {
+      title: `Fachkraft für Arbeitssicherheit in ${city}`,
+      subtitle: "Ihre professionelle Unterstützung",
+      intro: teamIntro,
+      bullets: [
+        "Prävention durch Sicherheitsingenieur",
+        "Teilnahme an ASA-Sitzungen",
+        "Betreuung gemäß Arbeitssicherheitsgesetz (ASiG)",
+        `Beste Beratungsqualität im Raum ${city} und deutschlandweit`,
+      ],
+    },
+    {
+      title: `Fachkraft für Arbeitssicherheit in ${city}`,
+      subtitle: "Ihre professionelle Unterstützung",
+      intro: teamIntro,
+      bullets: [
+        "Teilnahme an ASA-Sitzungen",
+        "Betreuung gemäß Arbeitssicherheitsgesetz (ASiG)",
+        "Stellung der Fachkraft für Arbeitssicherheit nach ASiG",
+        "Prävention & Beratung in Arbeitssicherheitsfragen",
+      ],
+    },
+    {
+      title: `Professioneller Arbeitsschutz in ${city}`,
+      subtitle: "jetzt informieren und absichern",
+      intro: teamIntro,
+      bullets: [
+        "Durchführung von Unterweisungen und Schulungen",
+        "Stellung der Fachkraft für Arbeitssicherheit nach ASiG",
+        "Prävention & Beratung in Arbeitssicherheitsfragen",
+        `In ${city}, deutschlandweit oder digital`,
+      ],
+    },
   ];
 }
 

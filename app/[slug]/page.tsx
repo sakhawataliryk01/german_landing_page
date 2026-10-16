@@ -29,5 +29,5 @@ export default async function CityPage({
   const parsed = parseCityRoute(slug);
   if (!parsed) notFound();
 
-  return <LandingPage city={parsed.city} slug={parsed.slug} />;
+  return <LandingPage city={parsed.city} />;
 }

@@ -7,10 +7,10 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CtaBanner from "@/components/CtaBanner";
 
-export default function LandingPage({ city, slug }: { city: string; slug: string }) {
+export default function LandingPage({ city }: { city: string }) {
   return (
     <>
-      <Hero city={city} slug={slug} />
+      <Hero city={city} />
       <Clients />
       <Process city={city} />
       <PromiseSection city={city} />
