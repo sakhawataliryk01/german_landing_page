@@ -11,8 +11,82 @@ export type HeroVariant = {
   title: string;
   subtitle: string;
   intro: string;
-  bullets: string[];
 };
+
+export const HERO_BULLET_COUNT = 4;
+export const HERO_BULLET_PAIRS_PER_HEADING = 5;
+
+const HERO_BULLET_TEMPLATES = [
+  "Stellung der Fachkraft für Arbeitssicherheit nach ASiG",
+  "Betreuung gemäß Arbeitssicherheitsgesetz (ASiG)",
+  "Einschätzung und Beurteilung von Arbeitsbedingungen",
+  "Teilnahme an Arbeitsschutzausschuss-Sitzungen (ASA)",
+  "Durchführung von Unterweisungen und Schulungen",
+  "Prävention durch erfahrene Fachkräfte für Arbeitssicherheit",
+  "Beratung zu gesetzlichen Anforderungen im Arbeitsschutz",
+  "Unterstützung bei der Umsetzung von Schutzmaßnahmen",
+  "Ermittlung und Bewertung betrieblicher Gefährdungen",
+  "Beratung zur sicheren Gestaltung von Arbeitsplätzen",
+  "Erstellung und Überprüfung von Betriebsanweisungen",
+  "Unterstützung bei der Organisation des betrieblichen Arbeitsschutzes",
+  "Beratung zur Vermeidung von Arbeitsunfällen",
+  "Unterstützung bei der Verbesserung der Arbeitssicherheit",
+  "Begleitung bei der Beurteilung von Arbeitsbedingungen",
+  "Individuelle Beratung passend zu Ihrem Unternehmen",
+  "Persönliche Ansprechpartner für Ihre Arbeitssicherheit",
+  "Ganzheitliche Betreuung digital oder direkt vor Ort",
+  "Flexible Betreuung für Unternehmen unterschiedlicher Größen",
+  "Unterstützung bei der Planung präventiver Maßnahmen",
+  "Beratung zur sicheren Nutzung von Arbeitsmitteln",
+  "Erkennen möglicher Unfall- und Gesundheitsgefahren",
+  "Unterstützung bei der Dokumentation des Arbeitsschutzes",
+  "Beratung zur Gestaltung sicherer Arbeitsabläufe",
+  "Begleitung bei der Weiterentwicklung Ihrer Arbeitsschutzorganisation",
+  "Unterstützung bei der Planung von Sicherheitsunterweisungen",
+  "Beratung zur Sensibilisierung Ihrer Mitarbeitenden für Gefahren",
+  "Förderung einer nachhaltigen Sicherheitskultur im Betrieb",
+  "Unterstützung bei der Koordination von Arbeitsschutzmaßnahmen",
+  "Beratung zu ergonomischen Arbeitsbedingungen",
+  "Berücksichtigung psychischer Belastungen bei der Arbeitsgestaltung",
+  "Unterstützung bei der Prävention arbeitsbedingter Gesundheitsgefahren",
+  "Beratung zur Verbesserung des betrieblichen Gesundheitsschutzes",
+  "Unterstützung bei der Organisation wiederkehrender Arbeitsschutzaufgaben",
+  "Fachkundige Begleitung bei Fragen zur Arbeitssicherheit",
+  "Beratung zur sicheren Gestaltung technischer Arbeitsbereiche",
+  "Unterstützung bei der Auswahl geeigneter Schutzmaßnahmen",
+  "Praktische Empfehlungen für mehr Sicherheit im Arbeitsalltag",
+  "Entlastung Ihrer Verantwortlichen bei organisatorischen Arbeitsschutzfragen",
+  "Unterstützung bei der systematischen Bewertung von Risiken",
+  "Beratung zur Vermeidung typischer Gefährdungen am Arbeitsplatz",
+  "Begleitung bei der Umsetzung betrieblicher Präventionsmaßnahmen",
+  "Unterstützung bei der Kommunikation von Sicherheitsanforderungen",
+  "Individuelle Lösungen für Ihre betrieblichen Sicherheitsanforderungen",
+  "Arbeitsschutzberatung abgestimmt auf Ihre betrieblichen Abläufe",
+  "Zuverlässige Begleitung bei Fragen rund um die Arbeitssicherheit",
+  "Unterstützung bei der kontinuierlichen Verbesserung des Arbeitsschutzes",
+  "Beratung für sichere und gesundheitsgerechte Arbeitsbedingungen",
+  "Digitale Beratung und persönliche Betreuung vor Ort",
+  "Ihr Ansprechpartner für betriebliche Arbeitssicherheit in {city}",
+] as const;
+
+export function heroBulletPool(city: string) {
+  return HERO_BULLET_TEMPLATES.map((item) => item.replaceAll("{city}", city));
+}
+
+export function heroBulletsAt(city: string, start: number, count = HERO_BULLET_COUNT) {
+  const pool = heroBulletPool(city);
+  return Array.from({ length: count }, (_, index) => pool[(start + index) % pool.length]);
+}
+
+export function heroBulletPair(city: string, headingIndex: number, pairIndex: number) {
+  const pool = heroBulletPool(city);
+  const start =
+    (headingIndex * HERO_BULLET_PAIRS_PER_HEADING * HERO_BULLET_COUNT +
+      pairIndex * HERO_BULLET_COUNT) %
+    pool.length;
+
+  return heroBulletsAt(city, start);
+}
 
 export function heroVariants(city: string): HeroVariant[] {
   const teamIntro =
@@ -24,45 +98,21 @@ export function heroVariants(city: string): HeroVariant[] {
       subtitle: "Sicherheit für Unternehmen und Kollegen",
       intro:
         "Sichern Sie Ihre Arbeitnehmenden ab. Unsere Experten beraten und betreuen Sie in allen Bereichen rundum das Thema Arbeitssicherheit. Damit halten Sie alle gesetzlichen Vorschriften ein und sind gegen Gefahren abgesichert.",
-      bullets: [
-        "Prävention & Beratung in Arbeitssicherheitsfragen",
-        `Beste Beratungsqualität im Raum ${city} und deutschlandweit`,
-        `Ganzheitliche Betreuung digital oder vor Ort in ${city}`,
-        "Professionell betreut und abgesichert – Einhaltung der rechtlichen Vorgaben",
-      ],
     },
     {
       title: `Fachkraft für Arbeitssicherheit in ${city}`,
       subtitle: "Ihre professionelle Unterstützung",
       intro: teamIntro,
-      bullets: [
-        "Prävention durch Sicherheitsingenieur",
-        "Teilnahme an ASA-Sitzungen",
-        "Betreuung gemäß Arbeitssicherheitsgesetz (ASiG)",
-        `Beste Beratungsqualität im Raum ${city} und deutschlandweit`,
-      ],
     },
     {
       title: `Fachkraft für Arbeitssicherheit in ${city}`,
       subtitle: "Ihre professionelle Unterstützung",
       intro: teamIntro,
-      bullets: [
-        "Teilnahme an ASA-Sitzungen",
-        "Betreuung gemäß Arbeitssicherheitsgesetz (ASiG)",
-        "Stellung der Fachkraft für Arbeitssicherheit nach ASiG",
-        "Prävention & Beratung in Arbeitssicherheitsfragen",
-      ],
     },
     {
       title: `Professioneller Arbeitsschutz in ${city}`,
       subtitle: "jetzt informieren und absichern",
       intro: teamIntro,
-      bullets: [
-        "Durchführung von Unterweisungen und Schulungen",
-        "Stellung der Fachkraft für Arbeitssicherheit nach ASiG",
-        "Prävention & Beratung in Arbeitssicherheitsfragen",
-        `In ${city}, deutschlandweit oder digital`,
-      ],
     },
   ];
 }
