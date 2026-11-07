@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState, type InputHTMLAttributes } from "react";
 
-type Status = "idle" | "success" | "error";
+type Status = "idle" | "success" | "error" | "sendError";
 
 export default function ContactForm() {
   const [challenge, setChallenge] = useState({ a: 4, b: 5, sum: 9 });
@@ -27,10 +27,28 @@ export default function ContactForm() {
     }
 
     setSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 700));
-    setSubmitting(false);
-    setStatus("success");
-    form.reset();
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          company: data.get("company"),
+          name: data.get("name"),
+          phone: data.get("phone"),
+          email: data.get("email"),
+          employees: data.get("employees"),
+          message: data.get("message"),
+          website: data.get("website"),
+        }),
+      });
+      if (!response.ok) throw new Error("send failed");
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("sendError");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (status === "success") {
@@ -63,8 +81,21 @@ export default function ContactForm() {
         required
         inputMode="numeric"
       />
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
       {status === "error" ? (
         <p className="text-sm text-red-200">Bitte prüfen Sie die Rechenaufgabe.</p>
+      ) : null}
+      {status === "sendError" ? (
+        <p className="text-sm text-red-200">
+          Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.
+        </p>
       ) : null}
       <button
         type="submit"
